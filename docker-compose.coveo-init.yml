@@ -1,0 +1,19 @@
+version: "2.4"
+
+services:
+  coveo-init:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-coveo-init:509713-${SITECORE_VERSION}
+    build:
+      context: ./docker/build/coveo-init
+      args:
+        BASE_IMAGE: ${SOLUTION_BASE_IMAGE}
+    scale: 0
+    coveo-init:
+      isolation: ${ISOLATION}
+      image: ${SITECORE_DOCKER_REGISTRY}sitecore-xp1-solr-init:${SITECORE_VERSION}
+      environment:
+        SITECORE_SOLR_CONNECTION_STRING: http://solr:8983/solr
+        SOLR_CORE_PREFIX_NAME: ${SOLR_CORE_PREFIX_NAME}
+      depends_on:
+        cm:
+          condition: service_healthy
