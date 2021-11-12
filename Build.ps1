@@ -3,7 +3,7 @@ $images = @()
 
 # Find images to pull in the docker-compose configuration
 foreach ($line in $configuration) {
-  if ($line -match "(BUILD_IMAGE|BASE_IMAGE|ASSETS_IMAGE|COVEO_ASSET|COVEO_SXA_ASSET):\s*([^\s]*)") {
+  if ($line -match "(BUILD_IMAGE|BASE_IMAGE|ASSETS_IMAGE|COVEO_ASSET):\s*([^\s]*)") {
     $images += $Matches.2
   }
 }
